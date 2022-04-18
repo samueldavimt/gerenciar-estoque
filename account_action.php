@@ -27,6 +27,10 @@ if($type == "register"){
         
         // Efetuando Verificacoes
 
+        if(strlen($name) > 50 || strlen($lastname) > 50 || strlen($email) > 50 || strlen($password) > 50 || strlen($c_password) > 50){
+            $newMessage->returnMessage("Dados Inválidos! Tente Novamente.", "");
+
+        }
         if(!User::validateEmail($email)){        
             $newMessage->returnMessage("Este Email é Inválido!", ""); 
         }
@@ -57,12 +61,41 @@ if($type == "register"){
 
         $userDAO->create($newUser);
         
-        $newMessage->returnMessage("", true);
+        $newMessage->returnMessage("", "register success");
 
 
 
     }else{
         
+        $newMessage->returnMessage("Preencha Todos os Campos!", "");
+    }
+
+}elseif($type == "login"){
+    
+    $email = filter_input(INPUT_POST, 'email');
+    $password = filter_input(INPUT_POST, 'password');
+
+    if(!empty($email) && !empty($password)){
+
+        if(strlen($email) > 100 ||  strlen($password) > 100){
+            $newMessage->returnMessage("Login ou Senha Inválido(s)", "");
+        }
+
+        $newUser = new User(new Sanitize());
+
+        $newUser->setEmail($email);
+        $newUser->setPass($password);
+
+        $result = $userDAO->login($newUser);
+
+        if($result){
+            $newMessage->returnMessage("", "login success");
+        }else{
+            $newMessage->returnMessage("Login ou Senha Inválido(s)", "");
+
+        }
+
+    }else{
         $newMessage->returnMessage("Preencha Todos os Campos!", "");
     }
 

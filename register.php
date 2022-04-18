@@ -1,6 +1,17 @@
 
 <?php
     require_once("templates/header.php");
+
+    use \classes\Dao\UserDAOMysql;
+
+    $userDao = new UserDAOMysql($pdo);
+
+    $userData = $userDao->verifyToken();
+
+    if($userData){
+        header("Location: index.php");
+        exit;
+    }
     
 ?>
 

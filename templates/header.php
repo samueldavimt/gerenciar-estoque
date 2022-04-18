@@ -3,7 +3,6 @@
     require_once("config/globals.php");
     require_once("vendor/autoload.php");
     
-
 ?>
 
 <!DOCTYPE html>

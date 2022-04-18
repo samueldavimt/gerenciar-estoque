@@ -1,14 +1,26 @@
 formRegister = document.querySelector("#form-register")
+formLogin = document.querySelector("#form-login")
 
-formRegister.addEventListener('submit', function(e){
-    e.preventDefault();
-    RegisterAjax(e)
-})
 
-function RegisterAjax(e){
+if(formRegister){
+    formRegister.addEventListener('submit', function(e){
+        e.preventDefault();
+        AccountHandleAjax(e)
+    })
+}
+
+if(formLogin){
+    formLogin.addEventListener('submit', function(e){
+        e.preventDefault();
+        AccountHandleAjax(e)
+    })
+    
+}
+
+
+function AccountHandleAjax(e){
 
     data = new FormData(e.currentTarget);
-    
     message = document.querySelector("#register-message");
 
     
@@ -28,8 +40,17 @@ function RegisterAjax(e){
             message.classList.remove("alert-success");
             message.innerHTML = data.error;
 
-        }else if(data.response == true){
+        }else if(data.response == "register success"){
             message.innerHTML = "Cadastro Efeituado com Sucesso!";
+            message.classList.remove("alert-danger");
+            message.classList.add("alert-success");
+
+            setTimeout(()=>{
+                location.href = "index.php";
+            },1000)
+
+        }else if(data.response == "login success"){
+            message.innerHTML = "Login Efeituado com Sucesso!";
             message.classList.remove("alert-danger");
             message.classList.add("alert-success");
 

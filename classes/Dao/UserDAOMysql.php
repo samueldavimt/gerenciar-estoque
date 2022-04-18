@@ -44,7 +44,9 @@ class UserDAOMysql implements UserDAO{
         $stmt->execute();
 
         if($stmt->rowCount() > 0){
-            return true;
+            
+            $user = $this->buildUser($stmt->fetch());
+            return $user;
         }else{
             return false;
         }
@@ -114,6 +116,27 @@ class UserDAOMysql implements UserDAO{
                 exit;
             }
 
+            return false;
+        }
+    }
+
+    public function login(User $user){
+
+        $data = $this->findByEmail($user->getEmail());
+
+        if($data){
+            
+            $key = $data->getPass();
+
+            if(password_verify($user->getPass(), $key)){
+
+                $this->setTokenToSession($data->getToken());
+                
+                return true;
+            }else{
+                return false;
+            }
+        }else{
             return false;
         }
     }

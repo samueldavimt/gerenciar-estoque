@@ -11,7 +11,7 @@
 
 .container-login h1, .container-register h1{
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 15px;
     font-size: 30px;
 }
 
@@ -31,4 +31,5 @@
     transition: 0.2s;
     opacity: 0;
     max-height: 0;
+
 }
