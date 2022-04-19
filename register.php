@@ -17,9 +17,8 @@
 
 <div class="container-register">
         <h1>Crie uma Conta</h1>
-        <div class="alert alert-danger" id="register-message" role="alert">
-        A simple primary alert—check it out!
-        </div>
+        <?php require_once("templates/message.html")?>
+        
         <form class="row g-3" method="POST" action="<?=$BASE_URL?>account_action.php" id="form-register">
 
             <input type="hidden" name="type" value="register">

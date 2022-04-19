@@ -13,6 +13,10 @@ use \classes\Models\Message;
 $userDAO = new UserDAOMysql($pdo);
 $newMessage = new Message();
 
+
+$userData = $userDAO->verifyToken();
+
+
 $type = filter_input(INPUT_POST, 'type');
 
 if($type == "register"){
@@ -75,11 +79,15 @@ if($type == "register"){
     $email = filter_input(INPUT_POST, 'email');
     $password = filter_input(INPUT_POST, 'password');
 
+    // Efetuando Verificacoes
+
     if(!empty($email) && !empty($password)){
 
         if(strlen($email) > 100 ||  strlen($password) > 100){
             $newMessage->returnMessage("Login ou Senha Inválido(s)", "");
         }
+
+        // Login
 
         $newUser = new User(new Sanitize());
 
@@ -98,5 +106,29 @@ if($type == "register"){
     }else{
         $newMessage->returnMessage("Preencha Todos os Campos!", "");
     }
+
+}elseif($type == "edit-user"){
+
+    $name = filter_input(INPUT_POST, 'name');
+    $lastname = filter_input(INPUT_POST, 'lastname');
+
+    if(!empty($name) && !empty($lastname)){
+
+        if($userData){
+
+            $userData->setName($name);
+            $userData->setLastName($lastname);
+
+            $userDAO->update($userData);
+
+            $newMessage->returnMessage("", "edit account success");
+
+        }
+ 
+    }else{
+       $newMessage->returnMessage("Preencha Todos os Campos do Usuário!", "");
+    }
+
+
 
 }

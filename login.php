@@ -16,9 +16,7 @@
 
 <div class="container-login">
         <h1>Efetuar Login</h1>
-        <div class="alert alert-danger" id="register-message" role="alert">
-        A simple primary alert—check it out!
-        </div>
+        <?php require_once("templates/message.html")?>
         <form method="POST" action="<?=$BASE_URL?>account_action.php" id="form-login">
             <input type="hidden" name="type" value="login">
             <div class="mb-3">

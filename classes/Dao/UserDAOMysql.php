@@ -31,7 +31,23 @@ class UserDAOMysql implements UserDAO{
 
     }
 
-    public function update(User $user){}
+    public function update(User $user){
+
+        $stmt = $this->pdo->prepare("UPDATE users SET name=:name, lastname=:lastname, email=:email, password=:password, token=:token WHERE id=:id");
+
+        $stmt->bindValue(":name", $user->getName());
+        $stmt->bindValue(":lastname", $user->getLastName());
+        $stmt->bindValue(":email", $user->getEmail());
+        $stmt->bindValue(":password", $user->getPass());
+        $stmt->bindValue(":token", $user->getToken());
+        $stmt->bindValue(":id", $user->getId());
+
+
+        $stmt->execute();
+
+
+    }
+
     public function destroy($id){}
     public function findAll(){}
     public function findById($id){}
@@ -101,7 +117,7 @@ class UserDAOMysql implements UserDAO{
             }else{
 
                 if($protected){
-                    header("Location: index.php");
+                    header("Location: login.php");
                     exit;
                 }
 
@@ -112,7 +128,7 @@ class UserDAOMysql implements UserDAO{
         }else{
 
             if($protected){
-                header("Location: index.php");
+                header("Location: login.php");
                 exit;
             }
 

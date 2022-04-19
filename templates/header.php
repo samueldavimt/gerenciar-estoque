@@ -24,7 +24,6 @@
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-
     <header>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container">
@@ -36,14 +35,12 @@
                     <ul class="navbar-nav">
                         
                         <?php if(!$userData):?>
+                            
                             <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="<?=$BASE_URL?>">Home</a>
+                                <a class="nav-link active" href="<?=$BASE_URL?>contact.php">Contato</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="<?=$BASE_URL?>contact.php">Contato</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="<?=$BASE_URL?>login.php">Login</a>
+                                <a class="nav-link active" href="<?=$BASE_URL?>login.php">Login</a>
                             </li>
                         <?php else:?>
                            
@@ -53,7 +50,7 @@
                                     <?=$userData->getName()?>
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-                                    <li><a class="dropdown-item" href="#">Minha Conta</a></li>
+                                    <li><a class="dropdown-item" href="<?=$BASE_URL?>myaccount.php">Minha Conta</a></li>
                                     <li><hr class="dropdown-divider"></li>
                                     <li><a class="dropdown-item" href="<?=$BASE_URL?>logout.php">Logout</a></li>
                                 </ul>

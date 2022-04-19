@@ -1,6 +1,31 @@
 formRegister = document.querySelector("#form-register")
 formLogin = document.querySelector("#form-login")
+formEditUser = document.querySelector("#form-edit")
+message = document.querySelector("#register-message");
 
+formResetPassword = document.querySelector("#form-reset-password")
+
+if(formResetPassword){
+    
+    formResetPassword.addEventListener('submit', function(e){
+        e.preventDefault();
+        message.style.maxHeight = 'none';
+        message.style.opacity = '1';
+        message.classList.add("alert-danger");
+        message.classList.remove("alert-success");
+
+        message.innerHTML = "Está Função não está Implementada";
+
+        
+    })
+}
+
+if(formEditUser){
+    formEditUser.addEventListener('submit', function(e){
+        e.preventDefault();
+        AccountHandleAjax(e)
+    })
+}
 
 if(formRegister){
     formRegister.addEventListener('submit', function(e){
@@ -21,8 +46,6 @@ if(formLogin){
 function AccountHandleAjax(e){
 
     data = new FormData(e.currentTarget);
-    message = document.querySelector("#register-message");
-
     
     fetch('account_action.php',{
         method: 'POST',
@@ -40,23 +63,31 @@ function AccountHandleAjax(e){
             message.classList.remove("alert-success");
             message.innerHTML = data.error;
 
-        }else if(data.response == "register success"){
-            message.innerHTML = "Cadastro Efeituado com Sucesso!";
+        }else{
+
+            redirect = false
+
             message.classList.remove("alert-danger");
             message.classList.add("alert-success");
 
-            setTimeout(()=>{
-                location.href = "index.php";
-            },1000)
+            if(data.response == "register success"){
+                message.innerHTML = "Cadastro Efeituado com Sucesso!";
+                redirect = true
+    
+            }else if(data.response == "login success"){
+                message.innerHTML = "Login Efeituado com Sucesso!";
+                redirect = true
 
-        }else if(data.response == "login success"){
-            message.innerHTML = "Login Efeituado com Sucesso!";
-            message.classList.remove("alert-danger");
-            message.classList.add("alert-success");
+            }else if(data.response == "edit account success"){
+                message.innerHTML = "Conta Editada com Sucesso!";
 
-            setTimeout(()=>{
-                location.href = "index.php";
-            },1000)
+            }
+
+            if(redirect){
+                setTimeout(()=>{
+                    location.href = "index.php";
+                },2000)
+            }
         }
     })
     .catch(function(error){

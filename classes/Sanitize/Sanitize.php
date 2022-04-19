@@ -27,3 +27,4 @@ class Sanitize{
         return addslashes($token);
     }
 }
+

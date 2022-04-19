@@ -6,13 +6,8 @@
 
     $userDao = new UserDAOMysql($pdo);
 
-    $userData = $userDao->verifyToken();
+    $userData = $userDao->verifyToken(true);
 
-    if($userData){
-        echo "logado";
-    }else{
-        echo "nao logado";
-    }
 ?>
 
 

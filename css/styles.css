@@ -47,3 +47,9 @@
         margin: 30px auto;
     }
 }
+
+/* User Account */
+
+.my-account .container-register{
+    margin: 50px 0px !important;
+}
