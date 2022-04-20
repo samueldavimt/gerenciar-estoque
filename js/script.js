@@ -5,6 +5,32 @@ message = document.querySelector("#register-message");
 
 formResetPassword = document.querySelector("#form-reset-password")
 
+
+
+function displayMessage(view=false, type="error", msg=""){
+
+    if(view){
+        message.style.maxHeight = 'none';
+        message.style.opacity = '1';
+    }else{
+        message.style.maxHeight = '0px';
+        message.style.opacity = '0';
+    }
+
+    if(type == 'success'){
+        message.classList.remove("alert-danger");
+        message.classList.add("alert-success");
+    }else{
+
+        message.classList.add("alert-danger");
+        message.classList.remove("alert-success");
+    }
+
+    message.innerHTML = msg;
+
+
+}
+
 if(formResetPassword){
     
     formResetPassword.addEventListener('submit', function(e){
@@ -59,39 +85,35 @@ function AccountHandleAjax(e){
         message.style.opacity = '1';
 
         if(data.error){
-            message.classList.add("alert-danger");
-            message.classList.remove("alert-success");
-            message.innerHTML = data.error;
+            displayMessage(true, 'error', data.error)
 
         }else{
 
             redirect = false
 
-            message.classList.remove("alert-danger");
-            message.classList.add("alert-success");
-
             if(data.response == "register success"){
-                message.innerHTML = "Cadastro Efeituado com Sucesso!";
+                displayMessage(true, 'success', "Cadastro Efeituado com Sucesso!")
                 redirect = true
     
             }else if(data.response == "login success"){
-                message.innerHTML = "Login Efeituado com Sucesso!";
+                displayMessage(true, 'success', "Login Efeituado com Sucesso!")
                 redirect = true
 
             }else if(data.response == "edit account success"){
-                message.innerHTML = "Conta Editada com Sucesso!";
+                displayMessage(true, 'success', "Conta Editada com Sucesso!")
+                
 
             }
 
             if(redirect){
                 setTimeout(()=>{
                     location.href = "index.php";
-                },2000)
+                },1000)
             }
         }
     })
     .catch(function(error){
-       
-        message.innerHTML = "Erro ao Enviar os dados! Tente Novamente."
+        displayMessage(true, 'error', "Erro ao Enviar os dados! Tente Novamente.")
     })
 }
+
