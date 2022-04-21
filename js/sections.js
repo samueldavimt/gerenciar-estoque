@@ -20,6 +20,17 @@ function SectionHandleAjax(e){
         body: data
     }).then(res => res.json()).then(function(data){
 
+        if(data.error){
+            displayMessage(true, 'error', data.error)
+            console.log(data.error)
+        }else{
+
+            if(data.response == "create success"){
+                displayMessage(true, 'success', "Sessão Criada com Sucesso!")
+                addSections()
+            }
+        }
+
     }).catch(function(error){
         displayMessage(true, 'error', "Erro ao Enviar os dados! Tente Novamente.")
         
@@ -29,6 +40,7 @@ function SectionHandleAjax(e){
 function addSections(){
 
     containerSections = document.querySelector(".container-sections")
+
 
     data = new FormData()
     data.append("type", "all")
@@ -44,8 +56,9 @@ function addSections(){
         if(data.error){
             displayMessage(true, "error", "Erro ao Carregar Sessões! Tente Novamente!")
         }else{
-
+            containerSections.innerHTML = ""
             data.response.forEach(data=>{
+
                 section = document.querySelector(".card.section").cloneNode(true)
                 section.style.display = "block";
 
@@ -71,7 +84,7 @@ function addSections(){
 
 }
 
-addSections()
+
 
 
 function getCookie(cname) {
@@ -89,3 +102,4 @@ function getCookie(cname) {
     }
     return "";
 }
+

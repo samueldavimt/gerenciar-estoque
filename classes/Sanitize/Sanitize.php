@@ -15,7 +15,8 @@ class Sanitize{
     }
 
     public function clearId($id){
-
+        $id = strip_tags($id);
+        $id = filter_var($id, FILTER_SANITIZE_SPECIAL_CHARS);
         $id = filter_var($id, FILTER_SANITIZE_NUMBER_INT);
         $id = addslashes($id);
 

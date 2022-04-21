@@ -10,11 +10,14 @@ formResetPassword = document.querySelector("#form-reset-password")
 function displayMessage(view=false, type="error", msg=""){
 
     if(view){
-        message.style.maxHeight = 'none';
+        message.style.height = 'auto';
         message.style.opacity = '1';
+        message.style.padding = "1em";
     }else{
-        message.style.maxHeight = '0px';
+        message.style.height = '0px';
         message.style.opacity = '0';
+        message.style.padding = "0";
+
     }
 
     if(type == 'success'){
@@ -81,8 +84,6 @@ function AccountHandleAjax(e){
     .then(res => res.json())
     .then(function(data){
         
-        message.style.maxHeight = 'none';
-        message.style.opacity = '1';
 
         if(data.error){
             displayMessage(true, 'error', data.error)

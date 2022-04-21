@@ -63,10 +63,10 @@ class Section {
 
 interface SectionDAO{
 
-    public function update();
-    public function create();
+    public function update(Section $section);
+    public function create(Section $section);
     public function findAll();
-    public function findProductsBySection();
+    public function findProductsBySection($id_section);
 
 
 }
