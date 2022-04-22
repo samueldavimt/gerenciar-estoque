@@ -74,10 +74,21 @@
 
 .card.section{
     margin: 15px;
+    position: relative;
+    min-height: 375px;
 }
 
-@media (max-width:992px){
-    
+.card a{
+    bottom: 10px;
+    position: absolute;
+    left: 15px;
+    width: 90%;
+}
+.card-text{
+    margin-bottom: 50px;
+}
+.card img{
+    max-height: 235px;
 }
 
 /* Products */
